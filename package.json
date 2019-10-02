@@ -6,7 +6,8 @@
   "scripts": {
     "start": "BRANCH=local ./node_modules/serverless/bin/serverless offline start",
     "test": "BRANCH=local SLS_DEBUG=* AWS_XRAY_CONTEXT_MISSING=LOG_ERROR jest --testMatch=\\\"**/*.unitTest.ts\\\" --coverage",
-    "sonar-scanner": "npm run tslint && npm run test && sonar-scanner"
+    "sonar-scanner": "npm run tslint && npm run test && sonar-scanner",
+    "security-checks": "git secrets --scan && git log -p | scanrepo"
   },
   "keywords": [
     "LEC"

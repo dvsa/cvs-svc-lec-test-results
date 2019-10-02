@@ -11,4 +11,4 @@ interface ILecTestResult {
   stationId: string;
 }
 
-export {ILecTestResult}
+export {ILecTestResult};
