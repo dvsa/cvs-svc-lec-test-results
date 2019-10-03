@@ -4,7 +4,7 @@ interface ILecTestResult {
   certificateSerialNumber: string;
   modType: string;
   testStatus: number;
-  emissionCode: string;
+  emissionCode: number;
   validFromDate: string;
   certificateExpiryDate: string;
   certificateIssueDate: string;

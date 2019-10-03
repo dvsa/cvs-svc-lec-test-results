@@ -18,7 +18,7 @@ export class LecTestResultsService {
     this.lecTestResultsDAO = lecTestResultsDAO;
   }
 
-  public getLecTestResults(): Promise<ILecTestResult[]> {
+  public async getLecTestResults() {
   return this.lecTestResultsDAO.getLecTestResults();
   }
 

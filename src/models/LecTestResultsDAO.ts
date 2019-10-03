@@ -14,7 +14,7 @@ export class LecTestResultsDAO {
   }
 
   public getLecTestResults() {
-    const letTestResults = new Promise<ILecTestResult[]>(() => JSON.parse(fs.readFileSync(path.resolve(__dirname, "../resources/lec-test-results.json"), "utf8")));
-    return letTestResults;
+    const lecTestResults = new Promise<ILecTestResult[]>(() => JSON.parse(fs.readFileSync(path.resolve(__dirname, "../resources/lec-test-results.json"), "utf8")));
+    return lecTestResults;
   }
 }
