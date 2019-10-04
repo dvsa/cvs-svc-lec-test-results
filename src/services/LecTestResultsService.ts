@@ -17,9 +17,8 @@ export class LecTestResultsService {
   constructor(lecTestResultsDAO: LecTestResultsDAO) {
     this.lecTestResultsDAO = lecTestResultsDAO;
   }
-
   public async getLecTestResults() {
-  return this.lecTestResultsDAO.getLecTestResults();
+    return await this.lecTestResultsDAO.getLecTestResults();
   }
 
 }
