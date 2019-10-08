@@ -2,8 +2,7 @@ import { expect } from "chai";
 import {LecTestResultsService} from "../src/services/LecTestResultsService";
 import fs from "fs";
 import path from "path";
-import { ILecTestResult } from "../src/models/ILecTestResult";
-import { compareAsc } from "date-fns";
+import { ILecTestResult } from "../@Types/ILecTestResult";
 
 describe("getLecTestResults", () => {
   let lecTestResultsService: LecTestResultsService | any;

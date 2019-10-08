@@ -1,7 +1,7 @@
 /**
  * Defines a throwable subclass of Error used for signaling an HTTP status code.
  */
-export class HTTPError extends Error {
+ export class HTTPError extends Error {
   public statusCode: number;
   public body: any;
   /**
@@ -16,3 +16,5 @@ export class HTTPError extends Error {
     this.body = body;
   }
 }
+
+ export default HTTPError;
