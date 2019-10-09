@@ -10,10 +10,10 @@ class Configuration {
   constructor(configPath: string) {
     if (!process.env.BRANCH) {throw new Error(ERRORS.NoBranch); }
 
-    const config = yml.readSync(configPath);
+    const configFile = yml.readSync(configPath);
 
     // Replace environment variable references
-    let stringifiedConfig: string = JSON.stringify(config);
+    let stringifiedConfig: string = JSON.stringify(configFile);
     const envRegex: RegExp = /\${(\w+\b):?(\w+\b)?}/g;
     const matches: RegExpMatchArray | null = stringifiedConfig.match(envRegex);
 
@@ -51,7 +51,7 @@ class Configuration {
 
   /**
    * Retrieves the lambda functions declared in the config
-   * @returns IFunctionEvent[]
+   * @returns IFunctions[]
    */
   public getFunctions() {
     if (!this.config.functions) {
@@ -71,30 +71,6 @@ class Configuration {
     });
   }
 
-  /**
-   * Retrieves the DynamoDB config
-   * @returns any
-   */
-  public getDynamoDBConfig() {
-    if (!this.config.dynamodb) {
-      throw new Error("DynamoDB config is not defined in the config file.");
-    }
-
-    // Not defining BRANCH will default to local
-    let env;
-    switch (process.env.BRANCH) {
-      case "local":
-        env = "local";
-        break;
-      case "local-global":
-        env = "local-global";
-        break;
-      default:
-        env = "remote";
-    }
-
-    return this.config.dynamodb[env];
-  }
 }
 
 export  {Configuration};
