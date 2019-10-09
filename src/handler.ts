@@ -1,11 +1,11 @@
 import Path from 'path-parser';
 import {Configuration} from './utils/Configuration';
 import {HTTPResponse} from './models/HTTPResponse';
-import { Context, APIGatewayProxyResult } from 'aws-lambda';
-import {IFunctions} from "../@Types/Configuration";
+import { Context, APIGatewayProxyResult, Callback } from 'aws-lambda';
+import {IFunctions, IFunctionEvent} from "../@Types/Configuration";
 import { HTTPRESPONSE } from './assets/Enums';
 
-const handler = async (event: any, context: Context): Promise<APIGatewayProxyResult> => {
+const handler = async (event: any, context: Context, callback: Callback): Promise<APIGatewayProxyResult> => {
   // Request integrity checks
   if (!event) {
     return new HTTPResponse(400, HTTPRESPONSE.AWS_EVENT_EMPTY);
@@ -25,14 +25,14 @@ const handler = async (event: any, context: Context): Promise<APIGatewayProxyRes
 
   // Finding an appropriate λ matching the request
   const config: Configuration = Configuration.getInstance();
-  const functions: IFunctions[] = config.getFunctions();
+  const functions: IFunctionEvent[] = config.getFunctions();
   const serverlessConfig = config.getConfig().serverless;
 
-  const matchingLambdaEvents = functions.filter((fn: IFunctions) => {
+  const matchingLambdaEvents = functions.filter((fn: IFunctionEvent) => {
     // Find λ with matching httpMethod
     return event.httpMethod === fn.method;
   })
-    .filter((fn: IFunctions) => {
+    .filter((fn: IFunctionEvent) => {
       // Find λ with matching path
       const localPath = new Path(fn.path)
       const remotePath = new Path(`${serverlessConfig.basePath}${fn.path}`); // Remote paths also have environment
@@ -55,7 +55,7 @@ const handler = async (event: any, context: Context): Promise<APIGatewayProxyRes
     console.log(`HTTP ${event.httpMethod} ${event.path} -> λ ${lambdaEvent.name}`);
 
     // Explicit conversion because typescript can't figure it out
-    return lambdaFn(event, context);
+    return lambdaFn(event, context, callback);
   }
 
   // If filtering results in less or more λ functions than expected, we return an error.

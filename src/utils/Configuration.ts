@@ -51,7 +51,7 @@ class Configuration {
 
   /**
    * Retrieves the lambda functions declared in the config
-   * @returns IFunctions[]
+   * @returns IFunctionEvent[]
    */
   public getFunctions() {
     if (!this.config.functions) {

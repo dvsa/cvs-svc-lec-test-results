@@ -22,13 +22,14 @@ describe("The lambda function handler", () => {
                 };
 
                 const ctx: any = mockContext(opts);
+                const clbck: any  = mockContext();
 
                 // Stub out the actual functions
                 LecTestResultsService.prototype.getLecTestResults = jest.fn().mockImplementation(() => {
                     return Promise.resolve(new HTTPResponse(200, {}));
                 });
 
-                const result = await handler(lecTestResultsEvent, ctx);
+                const result = await handler(lecTestResultsEvent, ctx, clbck);
                 ctx.succeed(result);
                 expect(result.statusCode).toEqual(200);
                 expect(LecTestResultsService.prototype.getLecTestResults).toHaveBeenCalled();
@@ -36,7 +37,9 @@ describe("The lambda function handler", () => {
 
             it("should return error on empty event", async () => {
                 let ctx: any = mockContext(opts);
-                const result = await handler(null, ctx);
+                const clbck: any  = mockContext();
+
+                const result = await handler(null, ctx, clbck);
                 ctx.succeed(result);
                 ctx = null;
 
@@ -54,7 +57,8 @@ describe("The lambda function handler", () => {
             Configuration.prototype.getFunctions = jest.fn().mockImplementation(() => []);
             const eventNoRoute = { httpMethod: "GET", path: "" };
             let ctx: any = mockContext(opts);
-            const result = await handler(eventNoRoute, ctx);
+            const clbck: any  = mockContext();
+            const result = await handler(eventNoRoute, ctx, clbck);
             ctx.succeed(result);
             ctx = null;
             expect(result.statusCode).toEqual(400);
