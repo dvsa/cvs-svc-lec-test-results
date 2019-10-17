@@ -15,7 +15,7 @@
     "build:copy": "find src -type f \\( -name \"*.yml\" -or -name \"*.json\" \\) | cpio -pdm .build && find tests -type f \\( -name \"*.yml\" -or -name \"*.json\" \\)  | cpio -pdm .build",
     "sonar-scanner": "npm run tslint && npm run test && sonar-scanner",
     "security-checks": "git secrets --scan && git log -p | scanrepo",
-    "eslint": "eslint . --config=.eslintrc.json --fix  -f json -o report.json",
+    "tslint": "tslint src/**/*.ts tests/**/*.ts -q",
     "coverage": "BRANCH=local SLS_DEBUG=* jest --testMatch=\"**/*.*Test.ts\" --coverage",
     "audit-dep": "npm audit --json | audit-filter --nsp-config=.nsprc --audit=-"
   },
