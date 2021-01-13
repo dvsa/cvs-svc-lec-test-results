@@ -1,11 +1,5 @@
-import { default as unwrappedAWS } from "aws-sdk";
-import { Configuration } from "../utils/Configuration";
-import {ILecTestResult} from "./ILecTestResult";
 import fs from "fs";
 import path from "path";
-/* tslint:disable */
-const AWSXRay = require('aws-xray-sdk');
-const AWS = AWSXRay.captureAWS(unwrappedAWS);
 /* tslint:enable */
 
 export class LecTestResultsDAO {
